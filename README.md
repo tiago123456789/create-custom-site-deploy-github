@@ -4,7 +4,7 @@ About:
 This project I build one solution where people populate json data, can see preview site with json data, can see preview pt-BR and en-US of site and finally if all thinks ok deploy application.
 
 
-How to use to build project:
+What was used to build project:
 ============================
 
 - Javascript
