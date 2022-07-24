@@ -1,0 +1,66 @@
+<%- include('partials/header.ejs') %>
+
+<body>
+   <div class="container">
+      <h1 class="text-center">Create your site</h1>
+      <div class="row">
+         <form class="col-md-12" method="post" action="/deploy">
+            <div class="form-group mt-2 mb-2">
+               <button type="submit" class="btn btn-primary">Deploy on Github</button>&nbsp;
+            </div>
+            <div class="row">
+               <div class="form-group col-md-6">
+                  <labe>Fill in the data to portuguese version(KEEP FORMAT JSON):</labe>
+                  <textarea rows="35" class="form-control" name="custom_data_pt">
+                     <%= structure_custom_data_site %>
+                  </textarea>
+               </div>
+               <div class="form-group col-md-6">
+                  <labe>Fill in the data to english version(KEEP FORMAT JSON):</labe>
+                  <textarea rows="35" class="form-control" name="custom_data_en">
+                     <%= structure_custom_data_site%>
+                  </textarea>
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="form-group col-md-6">
+                  <button id="btn_see_preview_pt" type="submit" class="btn btn-primary">See preview</button>&nbsp;
+               </div>
+               <div class="form-group col-md-6">
+                  <button id="btn_see_preview_en" type="submit" class="btn btn-primary">See preview</button>&nbsp;
+               </div>
+            </div>
+
+         </form>
+      </div>
+   </div>
+   <script>
+      function seePreviewSite(language) {
+         const content = document.querySelector(`textarea[name='custom_data_${language}'`)
+         try {
+            const json = JSON.parse(content.value);
+            const base64 = btoa(JSON.stringify({ ...json, language }))
+            const a = document.createElement("a")
+            a.href = "/preview?token=" + base64
+            a.target = "_blank"
+            a.click()
+         } catch (e) {
+            alert("Copy of content and access https://jsonformatter.curiousconcept.com/# to format and valid your json")
+         }
+      }
+      document.querySelector("#btn_see_preview_pt")
+         .addEventListener("click", (event) => {
+            event.preventDefault();
+            seePreviewSite("pt")
+         })
+
+      document.querySelector("#btn_see_preview_en")
+         .addEventListener("click", (event) => {
+            event.preventDefault();
+            seePreviewSite("en")
+         })
+   </script>
+</body>
+
+</html>
