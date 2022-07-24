@@ -47,7 +47,7 @@ module.exports = (app) => {
     })
     
     app.get("/login", (request, response) => {
-        return response.render("login")
+        return response.render("login", { redirectUri: process.env.OAUTH_REDIRECT_URI })
     })
     
 }
