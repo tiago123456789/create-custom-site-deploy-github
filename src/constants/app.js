@@ -4,7 +4,6 @@ module.exports = {
         "image": "link_image_avatar_github",
         "name": "name",
         "description": "I am fullstack developer",
-        "keywords": "php, javascript, node.js, nodejs, express.js, express, react, nest.js, fullstack, backend, frontend, database, devops, study software architecture",
         "roles": [
             "backend",
             "frontend",
