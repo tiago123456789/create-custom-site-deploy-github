@@ -25,16 +25,25 @@ module.exports = (app) => {
     })
     
     app.get("/oauth-callback", async (request, response) => {
-        const { code } = request.query;
-        const accessToken = await new Github().authenticate(code);
-        request.session.accessToken = accessToken;
-        return response.redirect("/")
-    
+        try {
+            const { code } = request.query;
+            const accessToken = await new Github().authenticate(code);
+            request.session.accessToken = accessToken;
+            return response.redirect("/")
+        } catch(error) {
+            console.log(error);
+            return response.sendStatus(500)
+        }
     })
     
     app.get("/preview", hasAuthenticated, async (request, response) => {
-        const html = await siteGenerator.preview(request.query.token);
-        return response.send(html)
+        try {
+            const html = await siteGenerator.preview(request.query.token);
+            return response.send(html)
+        } catch(error) {
+            console.log(error);
+            response.sendStatus(500)
+        }
     })
     
     app.get("/login", (request, response) => {
